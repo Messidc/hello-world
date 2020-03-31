@@ -1,33 +1,56 @@
-import sys
-import math
+# from turtle import *
+# fillcolor("yellow")
+# color("yellow")
+# begin_fill()
+# while True:
+#     forward(180)
+#     right(144)
+#     if abs(pos())<1:
+#         break
+# end_fill()
+# done()
 
-fruits = ['grape', 'apple', 'strawberry', 'waxberry']
-fruits += ['pitaya', 'pear', 'mango']
-# 列表切片
-fruits2 = fruits[1:4]
-print(fruits2) # apple strawberry waxberry
-# 可以通过完整切片操作来复制列表
-fruits3 = fruits[:]
-print(fruits3) # ['grape', 'apple', 'strawberry', 'waxberry', 'pitaya', 'pear', 'mango']
-fruits4 = fruits[-3:-1]
-print(fruits4) # ['pitaya', 'pear']
-# 可以通过反向切片操作来获得倒转后的列表的拷贝
-fruits5 = fruits[::-1]
-print(fruits5) # ['mango', 'pear', 'pitaya', 'waxberry', 'strawberry', 'apple', 'grape']
 
-print('**************************************')
-f = [x for x in range(1, 10)]
-print(f)
-f = [x + y for x in 'ABCDE' for y in '1234567']
-print(f)
-# 用列表的生成表达式语法创建列表容器
-# 用这种语法创建列表之后元素已经准备就绪所以需要耗费较多的内存空间
-f = [x ** 2 for x in range(1, 1000)]
-print(sys.getsizeof(f))  # 查看对象占用内存的字节数
+# import turtle
 
-set1 = {1, 2, 3, 3, 3, 2}
-print(set1)
-set1.update([11, 12])
-print(set1)
-set1.update({1, 19})
-print(set1)
+# turtle.pensize(4)
+# turtle.pencolor('red')
+
+# turtle.forward(100)
+# turtle.right(90)
+# turtle.forward(100)
+# turtle.right(90)
+# turtle.forward(100)
+# turtle.right(90)
+# turtle.forward(100)
+
+# turtle.mainloop()
+
+
+
+# # 导入turtle包的所有内容:
+# from turtle import *
+
+# # 设置笔刷宽度:
+# width(4)
+
+# # 前进:
+# forward(200)
+# # 右转90度:
+# right(90)
+
+# # 笔刷颜色:
+# pencolor('red')
+# forward(100)
+# right(90)
+
+# pencolor('green')
+# forward(200)
+# right(90)
+
+# pencolor('blue')
+# forward(100)
+# right(90)
+
+# # 调用done()使得窗口等待被关闭，否则将立刻关闭窗口:
+# done()
