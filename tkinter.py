@@ -1,43 +1,104 @@
-# import tkinter
-# import tkinter.messagebox
+# #!/usr/bin/python
+# -*- coding: UTF-8 -*-
+from xml.sax import ContentHandler
+from xml.sax import parse
+import xml.sax
+
+"""
+从行开始，遇到标签之前，存在字符，content的值为这些字符串。
+从一个标签，遇到下一个标签之前， 存在字符，content的值为这些字符串。
+从一个标签，遇到行结束符之前，存在字符，content的值为这些字符串。
+标签可以是开始标签，也可以是结束标签。
+
+startDocument()方法：文档启动的时候调用。
+endDocument()方法：解析器到达文档结尾时调用。
+
+startElement(name, attrs)方法：遇到XML开始标签时调用，name是标签的名字，attrs是标签的属性值字典。
+endElement(name)方法：遇到XML结束标签时调用。
+"""
 
 
-# def main():
-#     flag = True
+class MovieHandler(ContentHandler):
+    def __init__(self):
+        self.CurrentData = ""
+        self.type = ""
+        self.format = ""
+        self.year = ""
+        self.rating = ""
+        self.stars = ""
+        self.description = ""
 
-#     # 修改标签上的文字
-#     def change_label_text():
-#         nonlocal flag
-#         flag = not flag
-#         color, msg = ('red', 'Hello, world!')\
-#             if flag else ('blue', 'Goodbye, world!')
-#         label.config(text=msg, fg=color)
+    # 元素开始事件处理
+    def startElement(self, tag, attributes):
+        self.CurrentData = tag
+        if tag == "movie":
+            print("*****Movie*****")
 
-#     # 确认退出
-#     def confirm_to_quit():
-#         if tkinter.messagebox.askokcancel('温馨提示', '确定要退出吗?'):
-#             top.quit()
+            title = attributes["title"]
+            print("Title:", title)
 
-#     # 创建顶层窗口
-#     top = tkinter.Tk()
-#     # 设置窗口大小
-#     top.geometry('240x160')
-#     # 设置窗口标题
-#     top.title('小游戏')
-#     # 创建标签对象并添加到顶层窗口
-#     label = tkinter.Label(top, text='Hello, world!', font='Arial -32', fg='red')
-#     label.pack(expand=1)
-#     # 创建一个装按钮的容器
-#     panel = tkinter.Frame(top)
-#     # 创建按钮对象 指定添加到哪个容器中 通过command参数绑定事件回调函数
-#     button1 = tkinter.Button(panel, text='修改', command=change_label_text)
-#     button1.pack(side='left')
-#     button2 = tkinter.Button(panel, text='退出', command=confirm_to_quit)
-#     button2.pack(side='right')
-#     panel.pack(side='bottom')
-#     # 开启主事件循环
-#     tkinter.mainloop()
+    # 元素结束事件处理
+    def endElement(self, tag):
+        if self.CurrentData == "type":
+            print("Type:", self.type)
+
+        elif self.CurrentData == "format":
+            print("Format:", self.format)
+
+        elif self.CurrentData == "year":
+            print("Year:", self.year)
+
+        elif self.CurrentData == "rating":
+            print("Rating:", self.rating)
+
+        elif self.CurrentData == "stars":
+            print("Stars:", self.stars)
+
+        elif self.CurrentData == "description":
+            print("Description:", self.description)
+
+        self.CurrentData = ""
+
+    # 内容事件处理
+    def characters(self, content):
+        if self.CurrentData == "type":
+            self.type = content
+        elif self.CurrentData == "format":
+            self.format = content
+        elif self.CurrentData == "year":
+            self.year = content
+        elif self.CurrentData == "rating":
+            self.rating = content
+        elif self.CurrentData == "stars":
+            self.stars = content
+        elif self.CurrentData == "description":
+            self.description = content
 
 
-# if __name__ == '__main__':
-#     main()
+if __name__ == "__main__":
+    """
+    创建一个 SAX 解析器并解析xml文档
+    xmlfile：xml文件名
+    contenthandler：必须是一个ContentHandler的对象
+    errorhandler：如果指定该参数，errorhandler必须是一个SAX ErrorHandler对象
+    xml.sax.parse(xmlfile, contenthandler[, errorhandler])
+    """
+
+    """
+    创建一个 SAX 解析器并解析xml字符串
+    xmlstring：xml字符串
+    xml.sax.parseString(xmlstring, contenthandler[, errorhandler])
+    """
+
+    # 创建一个解析器对象并返回
+    parser = xml.sax.make_parser()
+    # turn off namepsaces
+    parser.setFeature(xml.sax.handler.feature_namespaces, 0)
+    # 重写 ContextHandler
+    handler = MovieHandler()
+    parser.setContentHandler(handler)
+    parser.parse("movies.xml")
+
+    # parse("movies.xml", handler)
+
+    print("over")

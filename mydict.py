@@ -1,13 +1,23 @@
-class Dict(dict):
+import threading
 
-    def __init__(self, **kw):
-        super().__init__(**kw)
+#
+local_school=threading.local()
 
-    def __getattr__(self, key):
-        try:
-            return self[key]
-        except KeyError:
-            raise AttributeError(r"'Dict' object has no attribute '%s'" % key)
+def process_std():
+    std=local_school.student
+    print('Hello,%s(in %s)' % (std,threading.current_thread().name))
 
-    def __setattr__(self, key, value):
-        self[key] = str(value)
+def process_thread(name):
+    local_school.student=name
+    process_std()
+
+t1=threading.Thread(target=process_thread,args=('Fuck',))
+t2=threading.Thread(target=process_thread,args=('Thank',))
+
+t1.start()
+t2.start()
+t1.join()
+t2.join()
+
+
+

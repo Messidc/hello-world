@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<collection shelf="影片推荐">
+    <movie title="《战狼》">
+        <type>爱国</type>
+        <format>MP4</format>
+        <year>2016</year>
+        <rating>B</rating>
+        <stars>8</stars>
+        <description>超燃枪战大片</description>
+    </movie>
+    <movie title="《80后》">
+        <type>青春</type>
+        <format>3GP</format>
+        <year>2003</year>
+        <rating>A</rating>
+        <stars>9</stars>
+        <description>青春爱情故事</description>
+    </movie>
+</collection>

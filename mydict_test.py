@@ -4,6 +4,12 @@ from mydict import Dict
 
 class TestDict(unittest.TestCase):
 
+    def setUp(self):
+        print('setUp...')
+
+    def tearDown(self):
+        print('tearDown...')
+
     def test_init(self):
         d = Dict(a=1, b='test')
         d.q=123

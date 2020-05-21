@@ -1,56 +1,59 @@
-# from turtle import *
-# fillcolor("yellow")
-# color("yellow")
-# begin_fill()
-# while True:
-#     forward(180)
-#     right(144)
-#     if abs(pos())<1:
-#         break
-# end_fill()
-# done()
+from xml.parsers.expat import ParserCreate
 
 
-# import turtle
+class Student:
+    def __init__(self, name=None, age=None, sex=None, score=None):
+        self.name = name
+        self.age = age
+        self.sex = sex
+        self.score = score
 
-# turtle.pensize(4)
-# turtle.pencolor('red')
-
-# turtle.forward(100)
-# turtle.right(90)
-# turtle.forward(100)
-# turtle.right(90)
-# turtle.forward(100)
-# turtle.right(90)
-# turtle.forward(100)
-
-# turtle.mainloop()
+    def __str__(self):
+        return "姓名：{0}，年龄：{1}，性别：{2}，成绩：{3}".format(self.name, self.age, self.sex, self.score)
 
 
+students = []
 
-# # 导入turtle包的所有内容:
-# from turtle import *
 
-# # 设置笔刷宽度:
-# width(4)
+class MySaxHandler(object):
+    def __init__(self):
+        self.tag = None
+        self.student = None
 
-# # 前进:
-# forward(200)
-# # 右转90度:
-# right(90)
+    def start_element(self, name, attrs):
+        # print('start_element: %s---attrs: %s' % (name, str(attrs)))
+        self.tag = name
+        if name == "student":
+            self.student = Student()
 
-# # 笔刷颜色:
-# pencolor('red')
-# forward(100)
-# right(90)
+    def char_data(self, text):
+        # print('content: %s' % text)
+        if self.tag == "name":
+            self.student.name = text
+        if self.tag == "age":
+            self.student.age = text
+        if self.tag == "sex":
+            self.student.sex = text
+        if self.tag == "score":
+            self.student.score = text
 
-# pencolor('green')
-# forward(200)
-# right(90)
+    def end_element(self, name):
+        # print('end_element: %s' % name)
+        if name == "student":
+            students.append(self.student)
+            self.student = None
+        self.tag = None
 
-# pencolor('blue')
-# forward(100)
-# right(90)
 
-# # 调用done()使得窗口等待被关闭，否则将立刻关闭窗口:
-# done()
+with open("students.xml", "r", encoding="utf-8") as stu:
+    content = stu.read()
+
+handler = MySaxHandler()
+parser = ParserCreate()
+
+parser.StartElementHandler = handler.start_element
+parser.CharacterDataHandler = handler.char_data
+parser.EndElementHandler = handler.end_element
+parser.Parse(content)
+for student in students:
+    print(student)

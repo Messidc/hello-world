@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<students>
+<student title="student">
+    <name>孟浩鹏</name>
+    <age>23</age>
+    <sex>男</sex>
+    <score>150</score>
+</student>
+<student title="student">
+    <name>几把</name>
+    <age>29</age>
+    <sex>女</sex>
+    <score>1501</score>
+</student>
+</students>
